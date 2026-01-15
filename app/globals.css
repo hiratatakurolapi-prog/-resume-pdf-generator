@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-noto-sans-jp: 'Noto Sans JP', sans-serif;
+  }
+  
+  body {
+    font-family: var(--font-noto-sans-jp);
+  }
+}
+
+/* 印刷専用スタイル（最重要：文字化け防止） */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 15mm 10mm;
+  }
+  
+  * {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  
+  body {
+    font-family: var(--font-noto-sans-jp) !important;
+    font-size: 10pt;
+    line-height: 1.6;
+    color: #000;
+    background: #fff;
+  }
+  
+  /* 改行保持（職務経歴書の説明文など） */
+  .preserve-linebreaks {
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  /* ページ分割制御 */
+  .avoid-break {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  /* テーブル行分割防止 */
+  table {
+    page-break-inside: auto;
+  }
+  
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+  
+  thead {
+    display: table-header-group;
+  }
+  
+  /* 見出し後の改ページ防止 */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  
+  /* 不要な要素を非表示 */
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* Web表示用プレビュー（A4シミュレーション） */
+@media screen {
+  .pdf-preview {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 15mm 10mm;
+    margin: 20px auto;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* 共通スタイル */
+.preserve-linebreaks {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
